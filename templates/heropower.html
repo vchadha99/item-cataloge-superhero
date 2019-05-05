@@ -1,0 +1,73 @@
+{% extends "main.html" %}
+{% block content %}	
+<style>
+.button {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: 4px 2px;
+	cursor: pointer;
+  }
+  
+  .button1 {
+	background-color: red; 
+	color: black; 
+	border: 2px solid red;
+  }
+  
+  .button2 {
+	background-color: black; 
+	color: orangered; 
+	border: 2px solid #008CBA;
+  }
+  
+  .button3 {
+	background-color: white; 
+	color: red; 
+	border: 2px solid #4CAF50;
+  }
+
+  .button4 {
+	background-color: rosybrown; 
+	color: black; 
+	border: 2px solid blueviolet;
+  }
+ 
+  body{
+	background-image: url("/static/superhero.PNG");
+	background-repeat: no-repeat;
+    background-size: 1400px 1200px;
+  }
+   
+	</style>
+		<div align="right">
+			{% if 'username' not in session %}
+					<button class = "button button3"><a href="{{url_for('showLogin')}}">Login</a></button>
+	
+			{% else %}
+			<button class = "button button1"><a href="{{url_for('disconnect')}}">Logout</a></button>
+			
+			{% endif %}
+	
+		</div>	
+<h1 style ="font-family:'Arial Black','sans-serif'; font-size:40px; color:rgb(255, 166, 0); " >{{ hero.name }}</h1>
+
+
+
+{% for i in power %}
+
+<div>
+		<p style="font-family:'Comic Sans MS','sans-serif'; font-size:25px; color:rgb(0, 255, 255); ">{{i.powers}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href = "{{url_for('deletePower', hero_id= hero_id , power_id = i.id)}}"><button class = "button button1">DELETE</button></a>
+			<a href = "{{url_for('editPower', hero_id= hero_id , power_id = i.id)}}"><button class = "button button4">EDIT</button></a></p>
+
+</div>
+
+{% endfor %}
+<a href = "{{url_for('newPower', hero_id= hero_id )}}"><button class = "button button4">ADD POWER</button></a>
+<a href = "{{url_for('editHero', hero_id= hero_id)}}"><button class = "button button4">EDIT HERO</button></a>
+{% endblock %}

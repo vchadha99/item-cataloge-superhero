@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+<script>
+  function start() {
+    gapi.load('auth2', function() {
+      auth2 = gapi.auth2.init({
+        client_id: '225708416332-hek1bcolofamg7lrt3dumacb6j5t53t9.apps.googleusercontent.com'
+      });
+    });
+  }
+</script>
+</head>
+
+
+<body>  
+  <center>  
+          <img style="width: 600px; height: 300px;" src="static/logo1.JPG">
+          <div id="signinButton"><button style="background-color: transparent; border-color: transparent; margin-top: 50px;" id="signinButton"><img src="static/gsign.png"></button>
+          <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="225708416332-hek1bcolofamg7lrt3dumacb6j5t53t9.apps.googleusercontent.com"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+          </span>
+        </div>
+    </center>
+<script>
+  $('#signinButton').click(function() 
+  {
+    function signInCallback(authResult)
+    {
+      if (authResult['code'])
+      {
+        $('#signinButton').attr('style', 'display: none');
+        $.ajax({
+          type: 'POST',
+          url: '/gconnect?state={{STATE}}',
+          headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+          },
+          contentType: 'application/octet-stream; charset=utf-8',
+          success:function(result)
+          {
+            $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+            setTimeout(function() 
+                 {
+                  window.location.href = "/heros";
+                 }, 2000);
+          },
+          processData:false,
+          data:authResult['code']
+        });
+      } else{
+        // handle error
+        console.log('There was an error: ' + authResult['error']);
+        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+      }
+    }
+    auth2.grantOfflineAccess().then(signInCallback);
+  });
+</script>
+  </body>
+  </html>

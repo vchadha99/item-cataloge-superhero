@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}	
+
+<style>
+
+        body{
+            background-image: url("/static/superhero.PNG");
+            background-repeat: no-repeat;
+            background-size: 1400px 1200px;
+          }
+           
+          </style>
+
+<h1 style ="font-family:'Arial Black','sans-serif'; font-size:40px; color:rgb(2, 166, 0); " >Are you sure you want to delete ? </h1>
+
+<form action="{{ url_for('deletePower',hero_id = hero_id, power_id=power_id)}}" method = 'post'>
+
+<input type='submit', value = 'Delete'>
+
+
+
+
+</form>
+
+<a style="font-family:'Comic Sans MS';font-size:20px; color:chocolate" href = "{{url_for('heroPower' , hero_id = hero_id)}}"> Cancel </a>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block content %}
+<style>
+
+        body{
+            background-image: url("/static/superhero.PNG");
+            background-repeat: no-repeat;
+            background-size: 1400px 1200px;
+          }
+           
+          </style>
+          	
+<h1 style ="font-family:'Arial Black','sans-serif'; font-size:40px; color:rgb(2, 166, 0); " > HERO </h1>
+
+<form action="{{url_for('newHero' )}}" method = 'POST'>
+
+<input type='text' size='30' name='name' required/>
+
+<input type='submit' value='Create'/>
+
+</form>
+
+{% endblock %}

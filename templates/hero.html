@@ -1,0 +1,76 @@
+{% extends "main.html" %}
+{% block content %}
+<style>
+.button {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+  }
+  
+  .button1 {
+	background-color: white; 
+	padding: 5px 10px; 
+	color: black; 
+	border: 2px solid #4CAF50;
+  }
+  
+  .button2 {
+	background-color: black; 
+	color: orangered; 
+	border: 2px solid #008CBA;
+  }
+  
+  .button3 {
+	background-color:red;
+	padding: 5px 10px; 
+	color: black; 
+	border: 2px solid black;
+  }
+
+  .button4 {
+	background-color:rosybrown; 
+	padding: 5px 10px;
+	color: black; 
+	border: 2px solid black;
+  }
+  
+  body{
+	background-image: url("/static/superhero.PNG");
+	background-repeat: no-repeat;
+    background-size: 1400px 1200px;
+  }
+
+   
+	</style>
+	<div align="right">
+		{% if 'username' not in session %}
+				<button class = "button button1"><a href="{{url_for('showLogin')}}">Login</a></button>
+
+		{% else %}
+		<button class = "button button3"><a href="{{url_for('disconnect')}}">Logout</a></button>
+		
+		{% endif %}
+
+	</div>	
+	
+	{% for i in hero %}
+	
+	<div>
+	<a href = "{{url_for('heroPower', hero_id= i.id)}}"><button class = "button button2">{{i.name}}</button></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href = "{{url_for('deleteHero', hero_id= i.id)}}"><button class = "button button3">DELETE</button></a><br>
+	
+	<br><br>
+	</div>
+	
+	
+	{% endfor %}
+	<a href = "{{url_for('newHero')}}"><button class = "button button4">ADD HERO</button></a>
+{% endblock %}
+
